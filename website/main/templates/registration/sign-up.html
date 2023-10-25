@@ -1,10 +1,49 @@
 {% extends 'main/base.html' %}
-{% block title %}Sign Up{% endblock %}
-{% load crispy_forms_tags %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+
 {% block content %}
-<form method="post">
-{% csrf_token %}{{form|crispy}}
-<p>Have an account? Login <a href="/login">Here</a>!</p>
-<button type="submit" class="btn btn-success">Register</button>
-</form>
+<div class="max-w-lg mx-auto flex flex-wrap p-6">
+    <div class="w-full bg-gray-100 p-6 rounded-xl">
+
+        <h1 class="mb-6 text-2xl font-semibold">Sign up</h1>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <div>
+                <label>Username</label>
+                <input type="text" name ="username" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+            </div>
+
+            <div>
+                <label>E-mail</label>
+                <input type="text" name ="email" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+
+            </div>
+
+            <div>
+                <label>Password</label>
+                <input type="password" name ="password1" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+
+            </div>
+
+            <div>
+                <label>Repeat Password</label>
+                <input type="password" name ="password2" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+
+            </div>
+            
+            <p>Have an account? Login <a href="/login">Here</a>!</p>
+            <div>
+                <button class="py-4 px-6 rounded-xl text-white bg-purple-500 hover:bg-purple-700">Submit</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
 {% endblock %}
