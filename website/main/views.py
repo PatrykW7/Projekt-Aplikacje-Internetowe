@@ -3,6 +3,10 @@ from .forms import RegisterForm
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 
+# IMPORTOWANIE BAZY MODELI
+
+from aimodels.models import Categorie, AiModel
+
 
 def home(request):
     return render(request, "main/home.html")
