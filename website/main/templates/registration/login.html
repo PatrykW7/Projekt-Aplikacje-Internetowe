@@ -13,9 +13,9 @@
 
       <form method="post" class="flex flex-col gap-4">
         {% csrf_token %}
-        <input class="p-2 mt-8 rounded-xl border" type="text" name="username" placeholder="Username">
+        <input class="p-2 mt-8 rounded-xl border text-black" type="text" name="username" placeholder="Username">
         <div class="relative">
-          <input class="p-2 rounded-xl border w-full" type="password" name="password" placeholder="Password">
+          <input class="p-2 rounded-xl border w-full text-black" type="password" name="password" placeholder="Password">
         </div>
 
         {% if form.errors %}
