@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main",
     "aimodels",
+    "captcha",
 ]
 
 
@@ -126,3 +127,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/home"
 LOGOUT_REDIRECT_URL = "/login"
+
+RECAPTCHA_PUBLIC_KEY = "6LeA-NQoAAAAAD6CaaEB92gVhYozjctvSth2DNwy"
+RECAPTCHA_PRIVATE_KEY = "6LeA-NQoAAAAADy_sgNP_F7_0BLcc3-MbupPMZYr"
