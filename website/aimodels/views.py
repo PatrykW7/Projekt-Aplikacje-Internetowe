@@ -5,7 +5,7 @@ from aimodels.models import AiModel, Category
 
 def all_models(request):
     categories = Category.objects.all()
-    products = AiModel.objects.all()
+    aimodels = AiModel.objects.all()
     
     # POBRANIE AKTYWNEGO ADRESU URL ZEBY WIEDZIEC KTORA NAZWE CATEGORY PODSWIETLAC 
     # category to jest iterator w petli z pliku shop
@@ -15,7 +15,7 @@ def all_models(request):
 
     # FILTROWANIE PRODUKTOW, ZEBY WYSWIETLALY SIE TYLKO TE KTORE MAJA AKTYWNA KATEGORIE
     if active_category:
-        products = products.filter(category__slug = active_category)
+        aimodels = aimodels.filter(category__slug = active_category)
 
     # WYSZUKIWANIE WYBRANYCH PRODUKTOW PO NAZWIE PRODUKTU
 
@@ -23,11 +23,17 @@ def all_models(request):
     query = request.GET.get('query', '')
 
     if query:
-        products = products.filter(Q(name__icontains=query) | (Q(description__icontains=query)))
+        aimodels = aimodels.filter(Q(name__icontains=query) | (Q(description__icontains=query)))
 
     context = {
         'categories': categories,
-        'products': products,
+        'aimodels': aimodels,
         'active_category': active_category
     }
     return render(request, 'aimodels/all_models.html', context)
+
+
+def aimodel(request, slug):
+    aimodel = AiModel.objects.get(slug = slug)
+
+    return render(request, 'aimodels/aimodel.html', {'model':aimodel})

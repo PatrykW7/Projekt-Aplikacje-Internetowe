@@ -32,23 +32,31 @@ class AiModel(models.Model):
         ordering = ('name', )
     
     # TO BY PODZIALALO DLA SELF.IMAGE ???
-    def create_thumbnail(self, image, size = (300, 300)):
+    def make_thumbnail(self, image, size = (300,300)):
         img = Image.open(image)
         img.convert("RGB")
         img.thumbnail(size)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality = 90)
-        
+        img.save(thumb_io, 'JPEG', quality = 85)
+
+        # CZYM JEST IMAGE.NAME ???
+        # SKAD IMAGE MA ATRYBUT NAME 
         thumbnail = File(thumb_io, name = image.name)
         return thumbnail
 
 
     def get_thumbnail(self):
-        if self.image:
-            self.thumbnail = self.create_thumbnail(self)
-            self.save()
-        return self.thumbnail.url
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            if self.image:
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
+
+                return self.thumbnail.url
+            else:
+                return 'https://via.placeholder.com/240x240x.jpg'
 
     # WYSWIETLANIE CENY W POPRAWNYM FORMACIE 
     def get_display_price(self):
