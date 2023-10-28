@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 
 # IMPORTOWANIE BAZY MODELI
 
-from aimodels.models import Categorie, AiModel
+from aimodels.models import Category, AiModel
 
 
 def home(request):
@@ -23,5 +23,3 @@ def sign_up(request):
         form = RegisterForm()
 
     return render(request, "registration/sign-up.html", {"form": form})
-
-

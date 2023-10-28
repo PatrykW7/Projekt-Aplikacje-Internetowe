@@ -6,7 +6,8 @@ from django.core.files import File
 # Create your models here.
 
 
-class Categorie(models.Model):
+
+class Category(models.Model):
     name = models.CharField(max_length = 255)
     slug = models.SlugField()
 
@@ -18,7 +19,7 @@ class Categorie(models.Model):
     
 
 class AiModel(models.Model):
-    category = models.ForeignKey(Categorie, related_name = 'aimodels', on_delete = models.CASCADE)
+    category = models.ForeignKey(Category, related_name = 'aimodels', on_delete = models.CASCADE)
     name = models.CharField(max_length = 255)
     slug = models.SlugField()
     price = models.FloatField()

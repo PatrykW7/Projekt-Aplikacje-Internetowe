@@ -4,7 +4,42 @@
 {% endblock %}
 {% block content %}
 
+<div class="max-w-7xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0 ">
+    <div class="filters w-full lg:w-1/5">
+        <h3 class = "mb-3 text-xl uppercase">Search</h3>
+
+        <form method = "get" action=".">
+            <div class = "flex">
+                
+                <input type = "text" name="query" class = "p-4 bg-gray-100 border-0" placeholder = "Search ...">
+                <button class="p-4 bg-gray-100 border-0">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                      
+                </button>
+            </div>
+        </form>
+
+        <h3 class = "mt-6 text-xl uppercase">Categories</h3>
+
+        <ul class="space-y-2">
+            
+            <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU-->
+            <li><a href = "{% url 'all_models' %}" class="{% if not active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">All categories</a></li>
+            {% for category in categories %}
+                <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU Z PRZEKAZANYM PARAMETREM category to iterator -->
+                <!--SPRAWDZA CZY AKTUALNA NAZWA KATEGORII JEST TA, KTORA JEST AKTYWNA -->
+                <li><a href = "{% url 'all_models' %}?category={{category.slug}}" class="{% if category.slug == active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">{{category.name}}</a></li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
 
 
+  
+</div>
 
 {% endblock %}
