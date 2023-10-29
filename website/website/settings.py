@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "main",
     "aimodels",
     "captcha",
+    "yt_sentiment",
 ]
 
 
