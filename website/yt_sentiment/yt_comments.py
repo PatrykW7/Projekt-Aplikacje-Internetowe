@@ -1,6 +1,7 @@
 import googleapiclient.discovery
 import googleapiclient.errors
 import os
+import re
 
 
 def get_comments(youtube, **kwargs):
@@ -22,10 +23,11 @@ def get_comments(youtube, **kwargs):
     return comments
 
 
-def main(video_id, api_key):
+def main(url, api_key):
     # Disable OAuthlib's HTTPs verification when running locally.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+    video_id = re.search(r"(?<==)[^&]+", url)[0]
     youtube = googleapiclient.discovery.build("youtube", "v3", developerKey=api_key)
 
     comments = get_comments(
