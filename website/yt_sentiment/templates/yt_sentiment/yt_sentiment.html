@@ -3,9 +3,11 @@
     YouTube Comment Sentiment Analysis
 {% endblock %}
 {% block content %}
+<div class="text-center pt-10">
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="text" class="text-black">
-        <button type="submit" >Analyse</button>
+        <input type="text" name="text" class="text-black rounded-xl border py-2">
+        <button type="submit" class="hover:bg-transparent hover:border-yellow-300 hover:text-white duration-300 hover:border bg-yellow-300 rounded-xl text-gray-800 py-2 px-2 hover:scale-105">Analyse</button>
     </form>
+</div>
 {% endblock %}
