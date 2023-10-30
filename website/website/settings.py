@@ -1,6 +1,10 @@
 from pathlib import Path
 import dj_database_url
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,9 +81,7 @@ DATABASES = {
 }
 
 # Remote PostgreSQL database hosted on Render
-DATABASES["default"] = dj_database_url.parse(
-    "postgres://ai_database_user:nFhROq3nuwGPauShmiyZ3jFBcItgxWK0@dpg-ckrn5a01hnes73fusoc0-a.frankfurt-postgres.render.com/ai_database"
-)
+DATABASES["default"] = dj_database_url.parse(env("DATABASE_URL"))
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -130,5 +132,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/home"
 LOGOUT_REDIRECT_URL = "/login"
 
-RECAPTCHA_PUBLIC_KEY = "6LeA-NQoAAAAAD6CaaEB92gVhYozjctvSth2DNwy"
-RECAPTCHA_PRIVATE_KEY = "6LeA-NQoAAAAADy_sgNP_F7_0BLcc3-MbupPMZYr"
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
