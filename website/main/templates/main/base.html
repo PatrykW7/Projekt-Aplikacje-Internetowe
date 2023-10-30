@@ -20,17 +20,18 @@
                 <li class="inline-block px-5"><a href="#" class="no-underline px-2 ">About</a></li>
                 <li class="inline-block px-5"><a href="#" class="no-underline px-2 ">Contact</a></li>
             </ul>
-            <ul class = "flex items-center space-x-4 font-semibold">
+            <ul class = "flex items-center space-x-4 font-semibold text-white">
                 <!--ODWOLANIE SIE DO ADRESU URL-->
 
 
                 <!--OBSLUZENIE PRZYCISKU WYLOGOWANIA-->
                 {% if request.user.is_authenticated %}
-                <li><a href = "{% url 'logout' %}" class="text-white">Log Out</a></li>
+                <span>Logged as {{ user.username }}</span>
+                <li><a href = "{% url 'logout' %}">Log Out</a></li>
                 {% endif %}
 
                 {% if not request.user.is_authenticated %}
-                <li><a href = "{% url 'login' %}" class="text-white">Log In</a></li>
+                <li><a href = "{% url 'login' %}">Log In</a></li>
                 {% endif %}
             </ul>
         </nav>
