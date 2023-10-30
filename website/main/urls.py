@@ -6,6 +6,7 @@ from django.contrib import admin
 from yt_sentiment.views import yt_sentiment
 from aimodels.views import all_models
 from aimodels.views import aimodel
+from yt_sentiment.views import yt_sentiment
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -15,3 +16,4 @@ urlpatterns = [
     path("yt_sentiment/", yt_sentiment, name="yt_sentiment"),
     path('all_models/<slug:slug>/', aimodel, name = "aimodel"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
