@@ -41,7 +41,7 @@ class AiModel(models.Model):
         img.save(thumb_io, 'JPEG', quality = 85)
 
         # CZYM JEST IMAGE.NAME ???
-        # SKAD IMAGE MA ATRYBUT NAME 
+        # SKAD IMAGE MA ATRYBUT NAME  - Z DOCSOW PILA 
         thumbnail = File(thumb_io, name = image.name)
         return thumbnail
 

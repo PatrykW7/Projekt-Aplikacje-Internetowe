@@ -36,4 +36,4 @@ def all_models(request):
 def aimodel(request, slug):
     aimodel = AiModel.objects.get(slug = slug)
 
-    return render(request, 'aimodels/aimodel.html', {'model':aimodel})
+    return render(request, 'aimodels/aimodel.html', {'aimodel':aimodel})
