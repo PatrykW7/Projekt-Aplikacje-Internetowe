@@ -23,7 +23,7 @@ def get_comments(youtube, **kwargs):
     return comments
 
 
-def main(url, api_key):
+def get_video_comments(url, api_key):
     # Disable OAuthlib's HTTPs verification when running locally.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -36,5 +36,5 @@ def main(url, api_key):
     return comments
 
 
-def get_video_comments(video_id, api_key):
-    return main(video_id, api_key)
+def main(video_id, api_key):
+    return get_video_comments(video_id, api_key)
