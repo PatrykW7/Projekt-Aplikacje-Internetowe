@@ -8,6 +8,7 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 from urllib.error import HTTPError
 from googleapiclient.errors import HttpError
+import plotly.express as px
 
 env = environ.Env()
 environ.Env.read_env()
@@ -38,9 +39,18 @@ def yt_sentiment(request):
             else:
                 analysed_comments = [nlp(comment, model)[0] for comment in comments]
                 df_result = pd.DataFrame(analysed_comments)
+                # ZASTANOWIC SIE CO LEPSZE sentiment_percentage, czy percents
                 sentiment_percentage = df_result["label"].value_counts().values / len(df_result)
                 sentiment_percentage = [round(num, 2) for num in sentiment_percentage]
                 num_comments = len(df_result)
+                percents = df_result["label"].value_counts(normalize = True) * 100
+                percent_help = {}
+
+
+                for label, value in zip(percents.index, percents.values):
+                    percent_help[label] = f"{value:.2f}%"
+
+
         except HttpError:
             result = {"available": 'No comments available'} 
                    
@@ -68,8 +78,22 @@ def yt_sentiment(request):
             "sentiment_percentage": sentiment_percentage,
             "most_pos_com": most_pos_com,
             "most_neg_com": most_neg_com,
+            "percents": percent_help.items()
+
         }
 
-        return render(request, "yt_sentiment/yt_sentiment.html", {"sentiment": result})
+        #### NEW
+
+        labels = percent_help.keys()
+        sizes = [45.45, 45.45, 9.09]
+
+        # Utwórz obiekt wykresu kołowego
+        fig = px.pie(labels=labels, values=sizes, title='Wykres kołowy')
+
+        # Konwertuj wykres do HTML
+        plot_html = fig.to_html(full_html=False)
+
+
+        return render(request, "yt_sentiment/yt_sentiment.html", {"sentiment": result, 'plot_html': plot_html})
     else:
         return render(request, "yt_sentiment/yt_sentiment.html")
