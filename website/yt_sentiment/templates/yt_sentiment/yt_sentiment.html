@@ -11,10 +11,14 @@
     </form>
     <div class="flex-center text-center pt-10 text-2xl">
         {% if sentiment.num_comments %}
-        <h1>Number of comments: {{ sentiment.num_comments }}</h1>
-        <h1>Percentage: {{ sentiment.sentiment_percentage }}</h1>
-        <h1>Most positive comment: "{{ sentiment.most_pos_com }}"</h1>
-        <h1>Most negative comment: "{{ sentiment.most_neg_com }}"</h1>
+            <h1>Number of comments: {{ sentiment.num_comments }}</h1>
+            <h1>Percentage: {{ sentiment.sentiment_percentage }}</h1>
+            <h1>Most positive comment: "{{ sentiment.most_pos_com }}"</h1>
+            <h1>Most negative comment: "{{ sentiment.most_neg_com }}"</h1>
+        
+
+        {% else %}
+            <h1> {{ sentiment.available }}</h1>
         {% endif %}
     </div>
 </div>
