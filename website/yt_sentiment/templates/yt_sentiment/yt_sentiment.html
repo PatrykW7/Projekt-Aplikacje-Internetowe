@@ -15,11 +15,30 @@
             <h1>Percentage: {{ sentiment.sentiment_percentage }}</h1>
             <h1>Most positive comment: "{{ sentiment.most_pos_com }}"</h1>
             <h1>Most negative comment: "{{ sentiment.most_neg_com }}"</h1>
-        
+            
+            <ul>
+                <li>Percent Dist: {{ sentiment.percent_distribution }}</li>
+
+            </ul>
+
+            
+            <ul>
+                {% for kategoria, procent in sentiment.percents %}
+                    <li>{{ kategoria }} - {{ procent }}</li>
+                {% endfor %}
+            </ul>
 
         {% else %}
             <h1> {{ sentiment.available }}</h1>
         {% endif %}
+        
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <div id="plotly-chart"></div>
+        
+        <script>
+            // Wstaw dane wykresu bezpośrednio
+            {{ plot_html|safe }}
+        </script>
     </div>
 </div>
 {% endblock %}
