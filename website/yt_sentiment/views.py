@@ -43,12 +43,14 @@ def yt_sentiment(request):
                 sentiment_percentage = df_result["label"].value_counts().values / len(df_result)
                 sentiment_percentage = [round(num, 2) for num in sentiment_percentage]
                 num_comments = len(df_result)
-                percents = df_result["label"].value_counts(normalize = True) * 100
+                percents = df_result["label"].value_counts()
                 percent_help = {}
 
-
                 for label, value in zip(percents.index, percents.values):
-                    percent_help[label] = f"{value:.2f}%"
+                    percent_help[label] = value
+
+                labels = list(percent_help.keys())
+                values = list(percent_help.values())
 
 
         except HttpError:
@@ -78,11 +80,14 @@ def yt_sentiment(request):
             "sentiment_percentage": sentiment_percentage,
             "most_pos_com": most_pos_com,
             "most_neg_com": most_neg_com,
-            "percents": percent_help.items()
+            "percents": percent_help.items,
+            "labels" : labels,
+            "values" : values
+         
 
         }
 
-        #### NEW
+        #### I WYKRES
 
         labels = percent_help.keys()
         sizes = [45.45, 45.45, 9.09]
@@ -92,6 +97,9 @@ def yt_sentiment(request):
 
         # Konwertuj wykres do HTML
         plot_html = fig.to_html(full_html=False)
+
+
+        
 
 
         return render(request, "yt_sentiment/yt_sentiment.html", {"sentiment": result, 'plot_html': plot_html})
