@@ -16,15 +16,22 @@
             <h1>Most positive comment: "{{ sentiment.most_pos_com }}"</h1>
             <h1>Most negative comment: "{{ sentiment.most_neg_com }}"</h1>
             
-            <ul>
-                <li>Percent Dist: {{ sentiment.percent_distribution }}</li>
-
-            </ul>
-
-            
+     
             <ul>
                 {% for kategoria, procent in sentiment.percents %}
-                    <li>{{ kategoria }} - {{ procent }}</li>
+
+                    {% if kategoria == "positive" %}
+                        <li><span style="color: #06D6A0;">{{ kategoria }}</span> - {{ procent }}</li>
+                   
+
+                    {% elif kategoria == "negative" %}
+                        <li><span style="color: #EF476F;">{{ kategoria }}</span> - {{ procent }}</li>
+                    
+
+                    {% else %}
+                        <li><span style="color: #7d8597;">{{ kategoria }}</span> - {{ procent }}</li>
+                    {% endif %}
+
                 {% endfor %}
             </ul>
 
@@ -32,13 +39,72 @@
             <h1> {{ sentiment.available }}</h1>
         {% endif %}
         
+
+        
+        <style type="text/css">
+            .chartBox{
+                width: 650px;
+                height:650px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+            
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+        </div>
+
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div id="plotly-chart"></div>
         
         <script>
             // Wstaw dane wykresu bezpośrednio
             {{ plot_html|safe }}
         </script>
+
+
+       
+        <script>
+            const ctx = document.getElementById('myChart');
+
+            const labels = {{ sentiment.labels|safe }};
+            const values = {{ sentiment.values|safe }};
+
+            const backgroundColors = labels.map((label) => {
+                // Przypisz konkretny kolor dla każdej etykiety
+                if (label === 'positive') {
+                    return '#06D6A0';
+                } else if (label === 'negative') {
+                    return '#EF476F';
+                } else if (label === 'neutral') {
+                    return '#7d8597';
+                } else {
+                    // Domyślny kolor lub inna logika przypisania koloru
+                    return 'rgb(128, 128, 128)';
+                }
+            });
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    maintainAspectRatio: false,
+                    backgroundColor: backgroundColors,
+                    hoverOffset: 4
+                }]
+            };
+
+            const config = {
+                type: 'doughnut',
+                data: data,
+            };
+
+
+            new Chart(ctx, config);
+        </script>
+        
     </div>
 </div>
 {% endblock %}
