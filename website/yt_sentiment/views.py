@@ -8,7 +8,6 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 from urllib.error import HTTPError
 from googleapiclient.errors import HttpError
-import plotly.express as px
 
 env = environ.Env()
 environ.Env.read_env()
@@ -41,7 +40,7 @@ def yt_sentiment(request):
             else:
                 analysed_comments = [nlp(comment, model)[0] for comment in comments]
                 df_result = pd.DataFrame(analysed_comments)
-                # ZASTANOWIC SIE CO LEPSZE sentiment_percentage, czy percents
+
                 sentiment_percentage = df_result["label"].value_counts().values / len(
                     df_result
                 )
@@ -82,7 +81,6 @@ def yt_sentiment(request):
 
         result = {
             "num_comments": num_comments,
-            "sentiment_percentage": sentiment_percentage,
             "most_pos_com": most_pos_com,
             "most_neg_com": most_neg_com,
             "percents": percent_help.items,
@@ -90,21 +88,10 @@ def yt_sentiment(request):
             "values": values,
         }
 
-        #### I WYKRES
-
-        labels = percent_help.keys()
-        sizes = [45.45, 45.45, 9.09]
-
-        # Utwórz obiekt wykresu kołowego
-        fig = px.pie(labels=labels, values=sizes, title="Wykres kołowy")
-
-        # Konwertuj wykres do HTML
-        plot_html = fig.to_html(full_html=False)
-
         return render(
             request,
             "yt_sentiment/yt_sentiment.html",
-            {"sentiment": result, "plot_html": plot_html},
+            {"sentiment": result},
         )
     else:
         return render(request, "yt_sentiment/yt_sentiment.html")

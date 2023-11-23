@@ -12,7 +12,6 @@
     <div class="flex-center text-center pt-10 text-2xl">
         {% if sentiment.num_comments %}
             <h1>Number of comments: {{ sentiment.num_comments }}</h1>
-            <h1>Percentage: {{ sentiment.sentiment_percentage }}</h1>
             <h1>Most positive comment: "{{ sentiment.most_pos_com }}"</h1>
             <h1>Most negative comment: "{{ sentiment.most_neg_com }}"</h1>
             
@@ -42,17 +41,21 @@
 
         
         <style type="text/css">
-            .chartBox{
-                width: 650px;
-                height:650px;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+            .chart-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 400px; /* Zmniejszenie wysokości wykresu dla lepszego dopasowania */
+            }
+
+            .chartBox {
+                width: 80%;
+                max-width: 650px;
             }
         </style>
-            
-        <div class="chartBox">
-            <canvas id="myChart"></canvas>
+        
+        <div class="chart-container">
+            <canvas id="myChart" class="chartBox"></canvas>
         </div>
 
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -108,4 +111,3 @@
     </div>
 </div>
 {% endblock %}
-
