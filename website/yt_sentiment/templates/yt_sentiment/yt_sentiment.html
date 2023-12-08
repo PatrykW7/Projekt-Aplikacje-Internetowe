@@ -114,6 +114,19 @@
         <br>
         <br>
 
+        <div>
+            {% if sentiment.num_comments %}
+                {% load static %}
+                <a href="{% static 'file.csv' %}" download="file.csv">
+                    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Pobierz plik CSV</button>
+                </a>
+            {% endif %}
+
+        </div>
+
+        <br>
+        <br>
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

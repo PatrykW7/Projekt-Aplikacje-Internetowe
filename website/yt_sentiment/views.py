@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from urllib.error import HTTPError
 from googleapiclient.errors import HttpError
 import pandas as pd
+import os.path
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -25,6 +27,8 @@ nlp = pipeline(
 
 result = {}
 
+part_PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
+full_PROJECT_PATH = part_PROJECT_PATH + r"\static\file.csv"
 
 @login_required(login_url="/login")
 def yt_sentiment(request):
@@ -93,6 +97,9 @@ def yt_sentiment(request):
 
         except ValueError:
             most_neg_com = "You have no negative comments! 🥳"
+
+        df_comments.to_csv(full_PROJECT_PATH)
+        print(full_PROJECT_PATH)
 
         result = {
             "num_comments": num_comments,
