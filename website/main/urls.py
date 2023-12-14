@@ -10,10 +10,11 @@ from yt_sentiment.views import yt_sentiment
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("contact", views.contact, name="contact"),
+    path("about", views.about, name="about"),
     path("home/", views.home, name="home"),
     path("sign-up/", views.sign_up, name="sing_up"),
     path("all_models/", all_models, name="all_models"),
     path("yt_sentiment/", yt_sentiment, name="yt_sentiment"),
-    path('all_models/<slug:slug>/', aimodel, name = "aimodel"),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
+    path("all_models/<slug:slug>/", aimodel, name="aimodel"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

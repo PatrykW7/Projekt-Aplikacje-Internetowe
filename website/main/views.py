@@ -11,6 +11,14 @@ def home(request):
     return render(request, "main/home.html")
 
 
+def contact(request):
+    return render(request, "main/contact.html")
+
+
+def about(request):
+    return render(request, "main/about.html")
+
+
 def sign_up(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)

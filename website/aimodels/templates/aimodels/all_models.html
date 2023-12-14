@@ -1,18 +1,18 @@
 {% extends 'main/base.html' %}
 {% block title %}
-    Models
+    Modele
 {% endblock %}
 {% block content %}
 
 <div class="max-w-7xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0 ">
     <div class="filters w-full lg:w-1/5">
-        <h3 class = "mb-3 text-xl uppercase">Search</h3>
+        <h3 class = "mb-3 text-xl uppercase">Wyszukaj model</h3>
 
         <form method = "get" action=".">
             <div class = "flex">
                 
-                <input type = "text" name="query" class = "p-4 bg-gray-100 border-0 text-black" placeholder = "Search ...">
-                <button class="p-4 bg-gray-100 border-0">
+                <input type = "text" name="query" class = "p-4 bg-gray-100 border-0 text-black" placeholder = "...">
+                <button class="p-4 bg-cyan-950 border-0">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -22,12 +22,12 @@
             </div>
         </form>
 
-        <h3 class = "mt-6 text-xl uppercase">Categories</h3>
+        <h3 class = "mt-6 text-xl uppercase">Kategorie</h3>
 
         <ul class="space-y-2">
             
             <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU-->
-            <li><a href = "{% url 'all_models' %}" class="{% if not active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">All categories</a></li>
+            <li><a href = "{% url 'all_models' %}" class="{% if not active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">Wszystkie kategorie</a></li>
             {% for category in categories %}
                 <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU Z PRZEKAZANYM PARAMETREM category to iterator -->
                 <!--SPRAWDZA CZY AKTUALNA NAZWA KATEGORII JEST TA, KTORA JEST AKTYWNA -->
@@ -52,33 +52,18 @@
                 </a>
 
                 <div class="pt-3 flex items-center justify-between font-semibold">
-                    <a href="{% url 'aimodel' aimodel.slug %}">{{aimodel.name}}</a>
-                        
-
-                    <!--IKONKA ZAKUPOW-->
-                    <a href = "{% url 'aimodel' aimodel.slug %}" class ="text-purple-500 hover:text-purple-800 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                    </a>
+                    <a href="{% url 'aimodel' aimodel.slug %}">{{aimodel.name}}</a>   
                 </div>
-                <!--CENA PRODUKTU-->
-                <p class="pt-1 text-gray-400">{{aimodel.get_display_price}}</p>
-                
-            
+
+                 
             </div>
 
         {% endfor %}
-
-        
-            
 
         </div>
 
     </div>
     
-
-  
 </div>
 
 {% endblock %}
