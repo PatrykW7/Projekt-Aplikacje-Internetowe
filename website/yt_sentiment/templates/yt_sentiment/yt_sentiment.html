@@ -6,27 +6,23 @@
 <div class="flex-center text-center pt-10">
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="text" class="text-black rounded-xl border py-3 px-3 md:py-4 md:px-4 lg:py-5 lg:px-5 xl:py-6 xl:px-6 w-64 md:w-72 lg:w-80 xl:w-96">
-        <button type="submit" class="hover:bg-transparent hover:border-cyan-950 hover:text-white duration-300 hover:border bg-cyan-950 rounded-xl text-white py-3 px-4 md:py-4 md:px-5 lg:py-5 lg:px-6 xl:py-6 xl:px-7 hover:scale-105"><b>Analyse</b></button>
+        <input type="text" name="text" class="text-black rounded-xl border py-3 px-3 md:py-4 md:px-4 lg:py-5 lg:px-5 xl:py-6 xl:px-6 w-64 md:w-72 lg:w-80 xl:w-96" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+        <button type="submit" class="hover:bg-transparent hover:border-cyan-950 hover:text-white duration-300 hover:border bg-cyan-950 rounded-xl text-white py-3 px-4 md:py-4 md:px-5 lg:py-5 lg:px-6 xl:py-6 xl:px-7 hover:scale-105"><b>Analizuj</b></button>
     </form>
     <div class="flex-center text-center pt-10 text-2xl">
         {% if sentiment.num_comments %}
 
             <h1>Liczba komentarzy: {{ sentiment.num_comments }}</h1>
-            <h1>Najbardziej pozytywny komentarz: "{{ sentiment.most_pos_com }}"</h1>
-            <h1>Najbardziej negatywny komentarz: "{{ sentiment.most_neg_com }}"</h1>
-            
+
             <ul>
                 {% for kategoria, procent in sentiment.percents %}
 
-                    {% if kategoria == "positive" %}
+                    {% if kategoria == "Pozytywny" %}
                         <li><span style="color: #06D6A0;">{{ kategoria }}</span> - {{ procent }}</li>
                    
-
-                    {% elif kategoria == "negative" %}
+                    {% elif kategoria == "Negatywny" %}
                         <li><span style="color: #EF476F;">{{ kategoria }}</span> - {{ procent }}</li>
                     
-
                     {% else %}
                         <li><span style="color: #7d8597;">{{ kategoria }}</span> - {{ procent }}</li>
                     {% endif %}
@@ -34,6 +30,9 @@
                 {% endfor %}
             </ul>
 
+            <h1>Najbardziej pozytywny komentarz: "{{ sentiment.most_pos_com }}"</h1>
+            <h1>Najbardziej negatywny komentarz: "{{ sentiment.most_neg_com }}"</h1>
+            
         {% else %}
             <h1> {{ sentiment.available }}</h1>
         {% endif %}
@@ -72,11 +71,11 @@
             const values = {{ sentiment.values|safe }};
 
             const backgroundColors = labels.map((label) => {
-                if (label === 'positive') {
+                if (label === 'Pozytywny') {
                     return '#06D6A0';
-                } else if (label === 'negative') {
+                } else if (label === 'Negatywny') {
                     return '#EF476F';
-                } else if (label === 'neutral') {
+                } else if (label === 'Neutralny') {
                     return '#7d8597';
                 } else {
                     

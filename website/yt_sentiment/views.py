@@ -30,6 +30,7 @@ result = {}
 part_PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
 full_PROJECT_PATH = part_PROJECT_PATH + r"\static\file.csv"
 
+
 @login_required(login_url="/login")
 def yt_sentiment(request):
     if request.method == "POST":
@@ -37,12 +38,8 @@ def yt_sentiment(request):
             text = request.POST.get("text")
             comments = get_video_comments(text, GOOGLE_API_KEY)
 
-            
-           
-
-
             if not comments:
-                result = {"available": "No comments available"}
+                result = {"available": "Brak komentarzy"}
 
                 return render(
                     request, "yt_sentiment/yt_sentiment.html", {"sentiment": result}
@@ -67,39 +64,39 @@ def yt_sentiment(request):
                 values = list(percent_help.values())
 
                 index = []
-                [index.append(i+1) for i in range(len(comments))]
-                df_comments = pd.DataFrame({
-                    'comments': comments,
-                    'labels': lab, 
-                })
-
+                [index.append(i + 1) for i in range(len(comments))]
+                df_comments = pd.DataFrame(
+                    {
+                        "Komentarz": comments,
+                        "Wynik analizy": lab,
+                    }
+                )
 
         except HttpError:
-            result = {"available": "No comments available"}
+            result = {"available": "Brak komentarzy"}
 
             return render(
                 request, "yt_sentiment/yt_sentiment.html", {"sentiment": result}
             )
 
         try:
-            most_pos_com_id = df_result[df_result["label"] == "positive"][
+            most_pos_com_id = df_result[df_result["label"] == "Pozytywny"][
                 "score"
             ].idxmax()
             most_pos_com = comments[most_pos_com_id]
         except ValueError:
-            most_pos_com = "You have no positive comments 🙁"
+            most_pos_com = "Nie masz żadnych pozytywnych komentarzy 🙁"
 
         try:
-            most_neg_com_id = df_result[df_result["label"] == "negative"][
+            most_neg_com_id = df_result[df_result["label"] == "Negatywny"][
                 "score"
             ].idxmax()
             most_neg_com = comments[most_neg_com_id]
 
         except ValueError:
-            most_neg_com = "You have no negative comments! 🥳"
+            most_neg_com = "Nie masz żadnych negatywnych komentarzy! 🥳"
 
         df_comments.to_csv(full_PROJECT_PATH)
-        print(full_PROJECT_PATH)
 
         result = {
             "num_comments": num_comments,
@@ -108,7 +105,6 @@ def yt_sentiment(request):
             "percents": percent_help.items,
             "labels": labels,
             "values": values,
-            
         }
 
         return render(
