@@ -1,33 +1,47 @@
 {% extends 'main/base.html' %}
 {% block title %}
-    Models
+    Modele
 {% endblock %}
 {% block content %}
 
-<div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0 ">
+<div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
 
-    <div class="images w-full mb-6 lg:mb-0 lg:w-3/5">
-        
-        <img src= "{{ aimodel.image.url }}" class = 'rounded-xl'>
+    <div class="images w-full mb-6 lg:mb-0 lg:w-3/5 relative">
+        <img src="{{ aimodel.image.url }}" class='rounded-xl w-full h-auto'>
 
+        <!-- Dodaj overlay dla responsywności na urządzeniach mobilnych -->
+        <div class="overlay lg:hidden absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+
+        <!-- Dodaj div z informacjami na zdjęciu -->
+        <div class="image-info lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+            <h1 class="text-2xl">{{ aimodel.name }}</h1>
+            <p class="mt-1">{{ aimodel.description }}</p>
+
+            {% if aimodel.name == 'YT Sentiment Predictor' %}
+                <a href="/yt_sentiment" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+                    Przetestuj model
+                </a>
+            {% else %}
+                <a href="#" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+                    Przetestuj model
+                </a>
+            {% endif %}
+        </div>
     </div>
 
-    <div class = 'information w-full lg:w-2/5 lg:p-6 bg-cyan-950 text-center rounded-xl'>
-        
-        <h1 class = "text-2xl">{{ aimodel.name }}</h1>
-        <p class="mt-1 text-white-400">{{aimodel.get_display_price}}</p>
-        <p class="mt-1 text-white-700">{{aimodel.description}}</p>
+    <div class="information w-full lg:w-2/5 lg:p-6 bg-cyan-950 text-center rounded-xl">
+        <h1 class="text-2xl">{{ aimodel.name }}</h1>
+        <p class="mt-1 text-white-700">{{ aimodel.description }}</p>
 
         {% if aimodel.name == 'YT Sentiment Predictor' %}
-            <a href ="/yt_sentiment" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
-                Przetestuj model
+            <a href="/yt_sentiment" class="mt-6 inline-block px-8 py-4 rounded-xl bg-white text-cyan-950 hover:bg-yellow-100">
+                <b>Przetestuj model</b>
             </a>
         {% else %}
-            <a href ="#" class="mt-6 inline-block px-8 py-4 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
-                Przetestuj model
+            <a href="#" class="mt-6 inline-block px-8 py-4 rounded-xl bg-white text-cyan-950 hover:bg-yellow-100">
+                <b>Przetestuj model</b>
             </a>
         {% endif %}
-
     </div>
 
 </div>
