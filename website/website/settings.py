@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "aimodels",
     "captcha",
     "yt_sentiment",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
 ]
 
 
@@ -46,6 +48,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_otp.middleware.OTPMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -107,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Poland"
 
 USE_I18N = True
 
