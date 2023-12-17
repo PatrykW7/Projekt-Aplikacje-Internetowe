@@ -10,60 +10,35 @@
 
         <form method = "get" action=".">
             <div class = "flex">
-                
                 <input type = "text" name="query" class = "p-4 bg-gray-100 border-0 text-black" placeholder = "...">
                 <button class="p-4 bg-cyan-950 border-0">
-
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                      
+                    </svg> 
                 </button>
             </div>
         </form>
-
         <h3 class = "mt-6 text-xl uppercase">Kategorie</h3>
-
         <ul class="space-y-2">
-            
-            <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU-->
             <li><a href = "{% url 'all_models' %}" class="{% if not active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">Wszystkie kategorie</a></li>
             {% for category in categories %}
-                <!--GENEROWANIE ADRESU URL NA PODSTAWIE NAZWY WIDOKU Z PRZEKAZANYM PARAMETREM category to iterator -->
-                <!--SPRAWDZA CZY AKTUALNA NAZWA KATEGORII JEST TA, KTORA JEST AKTYWNA -->
                 <li><a href = "{% url 'all_models' %}?category={{category.slug}}" class="{% if category.slug == active_category %} text-purple-500 {% else %} text-gray-500 {% endif %}">{{category.name}}</a></li>
             {% endfor %}
-
         </ul>
-
     </div>
-
     <div class="aimodels w-full lg:w-4/5 -mt-4 flex items-center flex-wrap px-10">
-        <!--PETLA FOR KTORA WYSWIETLA NAZWY PRODUKTOW, WYSTARCZY TYLKO JEDNO DLA WSZYSTKICH DIVOW-->
         {% for aimodel in aimodels %}
-            <!--TO JEST DIV NA POJEDYNCZY PRODUKT-->
             <div class = "w-full md:w-1/3 xl:w-1/4 p-6">
-                
-                <!--BARDZO WAZNE ZEBY DZIALALO SKAKANIE MIEDZY PRODUKTAMI-->
-                <!--<slug:slug>-->
                 <a href = "{% url 'aimodel' aimodel.slug %}">
-                    
                     <img src = "{{ aimodel.get_thumbnail }} "class="rounded-xl hover:shadow-lg" >
                 </a>
-
                 <div class="pt-3 flex items-center justify-between font-semibold">
                     <a href="{% url 'aimodel' aimodel.slug %}">{{aimodel.name}}</a>   
                 </div>
-
-                 
             </div>
-
         {% endfor %}
-
         </div>
-
     </div>
-    
 </div>
 
 {% endblock %}

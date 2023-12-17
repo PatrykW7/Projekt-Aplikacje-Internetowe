@@ -8,7 +8,6 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 from urllib.error import HTTPError
 from googleapiclient.errors import HttpError
-import pandas as pd
 import os.path
 
 

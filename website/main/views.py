@@ -2,10 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 
-# IMPORTOWANIE BAZY MODELI
-
-from aimodels.models import Category, AiModel
-
 
 def home(request):
     return render(request, "main/home.html")

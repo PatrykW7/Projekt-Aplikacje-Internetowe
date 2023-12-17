@@ -13,7 +13,6 @@ def get_comments(youtube, **kwargs):
             comment = item["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
             comments.append(comment)
 
-        # check if there are more comments
         if "nextPageToken" in results:
             kwargs["pageToken"] = results["nextPageToken"]
             results = youtube.commentThreads().list(**kwargs).execute()
@@ -24,7 +23,6 @@ def get_comments(youtube, **kwargs):
 
 
 def get_video_comments(url, api_key):
-    # Disable OAuthlib's HTTPs verification when running locally.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
     video_id = re.search(r"(?<==)[^&]+", url)[0]

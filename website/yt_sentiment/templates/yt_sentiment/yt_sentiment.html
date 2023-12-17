@@ -11,9 +11,7 @@
     </form>
     <div class="flex-center text-center pt-10 text-2xl">
         {% if sentiment.num_comments %}
-
             <h1>Liczba komentarzy: {{ sentiment.num_comments }}</h1>
-
             <ul>
                 {% for kategoria, procent in sentiment.percents %}
 
